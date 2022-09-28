@@ -20,9 +20,9 @@ public class Task1 {
     private static String removeDuplicateSymbolsFromString(String str) {
         StringBuilder sb = new StringBuilder();
         String formattedString = str.replace(" ", "").toUpperCase() + " ";
-        for (int i = 0; i < formattedString.length()-1; i++) {
-            if (formattedString.charAt(i) != formattedString.charAt(i + 1)) {
-                sb.append(formattedString.charAt(i));
+        for (int index = 0; index < formattedString.length()-1; index++) {
+            if (formattedString.charAt(index) != formattedString.charAt(index + 1)) {
+                sb.append(formattedString.charAt(index));
             }
         }
         return sb.toString();
