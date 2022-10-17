@@ -48,7 +48,7 @@ public class CinemaRunner {
         System.out.println("------------------------------------------------------");
         System.out.println(cinema.getFilmsByProductionYearAndMonth(2015,10));
         System.out.println("------------------------------------------------------");
-        cinema.getTopTenSortedRate().forEach(System.out::println);
+        cinema.getTopTenSortedByRate().forEach(System.out::println);
 
 
     }

@@ -50,7 +50,7 @@ public class Cinema {
         return result;
     }
 
-    public List<Film> getTopTenSortedRate() {
+    public List<Film> getTopTenSortedByRate() {
         List<Film> result = new ArrayList<>();
         for (List<Film> films : filmsBank.values()) {
             result.addAll(films);
