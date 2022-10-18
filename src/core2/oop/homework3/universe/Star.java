@@ -14,5 +14,4 @@ public class Star extends MainObject implements Measurable {
     @Override
     void print() {
         characteristic.getName();
-    }
 }
