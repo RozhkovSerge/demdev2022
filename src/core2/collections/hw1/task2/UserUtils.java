@@ -1,6 +1,7 @@
 package core2.collections.hw1.task2;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -31,10 +32,12 @@ public final class UserUtils {
         return resultList;
     }
 
-    public static int getUsersAverageAge(List<User> users) {
+    public static double getUsersAverageAge(List<User> users) {
         int usersAgeSum = 0;
-        for (User user : users) {
-            usersAgeSum += user.getAge();
+        Iterator<User> userIterator = users.iterator();
+        while (userIterator.hasNext()) {
+            User currentUser = userIterator.next();
+            usersAgeSum += currentUser.getAge();
         }
         return usersAgeSum / users.size();
     }

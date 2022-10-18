@@ -3,44 +3,47 @@ package core2.collections.hw2;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Cinema {
 
-    private Map<Integer, List<Film>> filmsBank = new LinkedHashMap<>();
+    private final Map<Integer, Set<Film>> filmsMap = new LinkedHashMap<>();
 
     public void addFilm(Film filmToAdd) {
-        if (!filmsBank.containsKey(filmToAdd.getProductionYear())) {
-            List<Film> yearRecord = new ArrayList<>();
+        if (!filmsMap.containsKey(filmToAdd.getProductionYear())) {
+            Set<Film> yearRecord = new LinkedHashSet<>();
             yearRecord.add(filmToAdd);
-            filmsBank.put(filmToAdd.getProductionYear(), yearRecord);
+            filmsMap.put(filmToAdd.getProductionYear(), yearRecord);
         } else {
-            List<Film> yearRecord = filmsBank.get(filmToAdd.getProductionYear());
-            if (!yearRecord.contains(filmToAdd)) {
-                yearRecord.add(filmToAdd);
-            }
+            filmsMap.get(filmToAdd.getProductionYear()).add(filmToAdd);
         }
     }
 
-    public List<Film> getFilmsByProductionYear(int year) {
-        return filmsBank.get(year);
+
+    public Set<Film> getFilmsByProductionYear(int year) {
+        return filmsMap.getOrDefault(year, Collections.emptySet());
     }
 
-    public List<Film> getFilmsByProductionYearAndMonth(int year, int month) {
-        List<Film> filmsByYear = filmsBank.get(year);
-        List<Film> result = new ArrayList<>();
-        for (Film film : filmsByYear) {
-            if (film.getProductionMonth() == month) {
-                result.add(film);
+    public Set<Film> getFilmsByProductionYearAndMonth(int year, int month) {
+        Set<Film> filmsByYear = filmsMap.get(year);
+        if (!filmsByYear.isEmpty()) {
+            Set<Film> result = new LinkedHashSet<>();
+            for (Film film : filmsByYear) {
+                if (film.getProductionMonth() == month) {
+                    result.add(film);
+                }
             }
+            return result;
         }
-        return result;
+        return Collections.emptySet();
     }
 
     public List<Film> getFilmsByGenre(String genre) {
         List<Film> result = new ArrayList<>();
-        for (List<Film> films : filmsBank.values()) {
+        for (Set<Film> films : filmsMap.values()) {
             for (Film film : films) {
                 if (film.getGenre().equals(genre)) {
                     result.add(film);
@@ -52,7 +55,7 @@ public class Cinema {
 
     public List<Film> getTopTenSortedByRate() {
         List<Film> result = new ArrayList<>();
-        for (List<Film> films : filmsBank.values()) {
+        for (Set<Film> films : filmsMap.values()) {
             result.addAll(films);
         }
         Collections.sort(result);

@@ -4,8 +4,8 @@ import java.util.List;
 
 public class Chat implements Comparable<Chat> {
 
-    private String name;
-    private List<User> users;
+    private final String name;
+    private final List<User> users;
 
     public Chat(String name, List<User> users) {
         this.name = name;

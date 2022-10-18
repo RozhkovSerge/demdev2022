@@ -1,9 +1,9 @@
 package core2.collections.hw1.task2;
 
 public class User {
-    private long id;
-    private String name;
-    private int age;
+    private final long id;
+    private final String name;
+    private final int age;
 
     public User(long id, String name, int age) {
         this.id = id;
