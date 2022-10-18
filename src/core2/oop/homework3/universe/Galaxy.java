@@ -21,6 +21,6 @@ public class Galaxy extends MainObject implements Measurable{
 
     @Override
     public Characteristic measure() {
-        return getCharacteristic();
+        return characteristic;
     }
 }
