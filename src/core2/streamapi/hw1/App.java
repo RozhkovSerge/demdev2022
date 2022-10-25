@@ -1,12 +1,9 @@
 package core2.streamapi.hw1;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -52,7 +49,7 @@ public class App {
          */
                 Map<Integer, Double> task1 = students.stream()
                         .filter(s->s.getMarks().size()>3)
-                        .collect(Collectors.groupingBy(Student::getCourse,  Collectors.averagingDouble(s->s.getAverage().stream().findFirst().getAsDouble())));
+                        .collect(Collectors.groupingBy(Student::getCourse,  Collectors.averagingDouble(Student::getAverage)));
 
                 System.out.println("-----------------------task1--------------------");
                 task1.entrySet().forEach(System.out::println);
