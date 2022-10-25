@@ -39,10 +39,11 @@ public class Student {
         return marks;
     }
 
-    public OptionalDouble getAverage() {
+    public double getAverage() {
         return marks.stream()
-                .mapToDouble(Double::intValue)
-                .average();
+                .mapToInt(Double::intValue)
+                .average()
+                .orElse(0.00);
     }
 
     @Override
