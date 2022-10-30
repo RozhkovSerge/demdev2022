@@ -6,11 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Task1 {
+
+    private static String[] priceData;
+    private static String[] nameData;
 
     public static void main(String[] args) {
         Path name = Path.of("src", "core2", "io", "hw1", "items-name.csv");
@@ -22,11 +23,11 @@ public class Task1 {
                 Stream<String> names = Files.lines(name);
                 BufferedWriter bufferedWriter = Files.newBufferedWriter(out, StandardOpenOption.APPEND, StandardOpenOption.CREATE)
         ) {
-            List<String> priceList = prices.collect(Collectors.toList());
-            List<String> nameList = names.collect(Collectors.toList());
+            priceData = prices.toArray(String[]::new);
+            nameData = names.toArray(String[]::new);
 
-            for (int id = 0; id < Math.max(priceList.size(), nameList.size()); id++) {
-                bufferedWriter.write(getOutLine(priceList, nameList, id));
+            for (int id = 0; id < Math.max(priceData.length, nameData.length); id++) {
+                bufferedWriter.write(getNextLine(id));
                 bufferedWriter.newLine();
             }
         } catch (IOException e) {
@@ -34,14 +35,19 @@ public class Task1 {
         }
     }
 
-    private static String getOutLine(List<String> priceList, List<String> nameList, int id) {
-        if (id == 0) {
+    private static String getNextLine(int id) {
+        int headerPosition = 0;
+        int indexPosition = 0;
+        int namePosition = 1;
+        int pricePosition = 1;
+
+        if (id == headerPosition) {
             return "ID, NAME, PRICE";
         } else {
-            List<String> nameLine = Arrays.stream(nameList.get(id).split(",")).collect(Collectors.toList());
-            List<String> priceLine = Arrays.stream(priceList.get(id).split(",")).collect(Collectors.toList());
-            if (nameLine.contains(String.valueOf(id)) && priceLine.contains(String.valueOf(id))) {
-                return nameLine.get(0) + ", " + nameLine.get(1) + ", " + priceLine.get(1);
+            String[] nameLineById = nameData[id].split(",");
+            String[] priceLineById = priceData[id].split(",");
+            if (Arrays.asList(nameLineById).contains(String.valueOf(id)) && Arrays.asList(priceLineById).contains(String.valueOf(id))) {
+                return nameLineById[indexPosition] + ", " + nameLineById[namePosition] + ", " + priceLineById[pricePosition];
             }
         }
         return "null, null, null";
