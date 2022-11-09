@@ -1,13 +1,14 @@
 package core2.multithreading.list;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ListDemo {
 
     public static void main(String[] args) throws InterruptedException {
 
-        List<Integer> list = new ArrayList<>();
+        List<Integer> list = Collections.synchronizedList(new ArrayList<>());
 
         Thread thread1 = new Thread(new ListThread(list));
         Thread thread2 = new Thread(new ListThread(list));
@@ -16,9 +17,12 @@ public class ListDemo {
         Thread thread5 = new Thread(new ListThread(list));
         Thread thread6 = new Thread(new ListThread(list));
         Thread thread7 = new Thread(new ListThread(list));
-        Thread thread = new Thread(()->{
-            System.out.println("Hello");
-        });
+        Thread thread8 = new Thread(new ListThread(list));
+        Thread thread9 = new Thread(new ListThread(list));
+        Thread thread10 = new Thread(new ListThread(list));
+        Thread thread11 = new Thread(new ListThread(list));
+        Thread thread12 = new Thread(new ListThread(list));
+
 
         thread1.start();
         thread2.start();
@@ -27,7 +31,11 @@ public class ListDemo {
         thread5.start();
         thread6.start();
         thread7.start();
-        thread.start();
+        thread8.start();
+        thread9.start();
+        thread10.start();
+        thread11.start();
+        thread12.start();
 
         thread1.join();
         thread2.join();
@@ -37,7 +45,7 @@ public class ListDemo {
         thread6.join();
         thread7.join();
 
-        System.out.println(list);
+//        System.out.println(list);
 //        System.out.println(list.stream().mapToInt(Integer::intValue).sum());
     }
 }
